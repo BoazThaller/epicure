@@ -5,6 +5,8 @@ import { ActionType } from '../../redux/ActionType';
 import { AppState } from '../../redux/AppState';
 import Footer from '../footer/Footer';
 import WindowSize from '../windowSize';
+import DishChanges from './DishChanges';
+import DishSide from './DishSide';
 
 export default function Dish(props:any) {
 
@@ -13,14 +15,14 @@ export default function Dish(props:any) {
     const dish = useSelector((state: AppState) => state.dishObj)
     const [quantity, SetQuantity] = useState(1);
 
-
     const onXClicked = () => {
         props.setIsDishModalDisplayed(false);
     }
 
     const onPlusClicked = () => {
-        SetQuantity(quantity +1)
+        SetQuantity(quantity +1);
     }   
+    
     const onMinusClicked = () => {
         if(quantity === 1) {
             SetQuantity(quantity);
@@ -29,10 +31,18 @@ export default function Dish(props:any) {
             SetQuantity(quantity -1);
         }
     }   
-    
-    const addToBag = () => {
+    const addToBag = () => {       
+        const sides:any = document.querySelectorAll(`input[name="side"]`)
+        const changes:any = document.querySelectorAll(`input[name="change"]`);
         props.setIsDishModalDisplayed(false);
         dispatch({type: ActionType.AddToBag, payload: +1});
+        let side = DishSide(sides);
+        let changesArray = DishChanges(changes);
+        let orderSummary = side + ", " + changesArray;
+        alert(orderSummary);
+        let orders:any = [];
+        orders.push({name:dish[0].name, side: side, changes: changesArray})
+        dispatch({type: ActionType.AddToOrders, payload: orders});
 
     }
 
@@ -62,11 +72,11 @@ export default function Dish(props:any) {
                             </HeadlineDiv>
                             <SideOptions>
                                 <OptionDiv>
-                                    <OptionInput type="radio" name="side"></OptionInput>
+                                    <OptionInput id="whiteBread" type="radio" name="side" value="white Bread" checked></OptionInput>
                                     <OptionName>White Bread</OptionName>    
                                 </OptionDiv> 
                                 <OptionDiv>
-                                    <OptionInput type="radio" name="side"></OptionInput>
+                                    <OptionInput id="stickyRice" type="radio" name="side" value="sticky Rice"></OptionInput>
                                     <OptionName>Sticky Rice</OptionName>    
                                 </OptionDiv> 
                             </SideOptions>
@@ -75,15 +85,15 @@ export default function Dish(props:any) {
                             </HeadlineDiv>
                             <ChangesOptions>
                                 <ChangeDiv>
-                                    <ChangeInput type="checkbox" id="WithoutOnion" name="withoutOnion"/>
+                                    <ChangeInput type="checkbox" id="WithoutOnion" name="change" value="without Onions" />
                                     <ChangeName>Without Onion</ChangeName>
                                 </ChangeDiv>
                                 <ChangeDiv>
-                                    <ChangeInput type="checkbox" id="WithoutPeanuts" name="withoutPeanuts"/>
+                                    <ChangeInput type="checkbox" id="WithoutPeanuts" name="change" value="without Peanuts" />
                                     <ChangeName>Without Peanuts</ChangeName>
                                 </ChangeDiv>
                                 <ChangeDiv>
-                                    <ChangeInput type="checkbox" id="lessSpicy" name="lessSpicy"/>
+                                    <ChangeInput type="checkbox" id="lessSpicy" name="change" value="less Spicy" />
                                     <ChangeName>Less Spicy</ChangeName>
                                 </ChangeDiv>
                             </ChangesOptions>
@@ -96,7 +106,7 @@ export default function Dish(props:any) {
                                 <Minus onClick={() => onPlusClicked()}>+</Minus>
                             </QuantityDiv>
                             <AddDishDiv>
-                                <AddDish onClick={addToBag}>ADD TO BAG</AddDish>
+                                <AddDish id="addToBag" onClick={addToBag}>ADD TO BAG</AddDish>
                             </AddDishDiv>
                         </Options>
                         {size < 600 &&

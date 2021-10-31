@@ -2,38 +2,44 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { on } from 'stream';
 import styled from 'styled-components';
+import { IRestaurant } from '../../interfaces/IRestaurant';
 import { ActionType } from '../../redux/ActionType';
 import { AppState } from '../../redux/AppState';
 import WindowSize from '../windowSize';
-import { ThemeProvider } from "styled-components";
 
 export default function Restaurants() {
 
     const size = WindowSize();
 
-
     const dispatch = useDispatch();
     const history = useHistory();
     const restaurantsArray = useSelector((state: AppState) => state.restaurantsArray);
-
+    const [arrayToMap, setArrayToMap] = useState(restaurantsArray);
+    
     useEffect(() => {
         localStorage.removeItem("restaurantData");
         localStorage.removeItem("dishesData");
         async function fetchRestaurants() {
             let restaurants = await axios.get("http://localhost:3001/api/v1/restaurants");     
             dispatch({type: ActionType.GetRestaurants, payload: restaurants});
-        }
-        fetchRestaurants();
-    }, [dispatch])
+        };
+        fetchRestaurants().then(
+            () => {
+                setArrayToMap(restaurantsArray)    
+            }
+        )
+    
+    }, [])
     
     const onRestaurantClicked = (restaurant:any) => {
         dispatch({type: ActionType.GetRestaurant, payload: restaurant});
         history.push("/restaurant");
     }
     
-    let newDataParamater = new Date("January 1, 2020, 23:59:59");
-    let newRestaurants = restaurantsArray.filter(restaurant => restaurant.dateOpened > newDataParamater);
+    let newDateParamater = new Date("2020-01-01T21:59:59.000Z")
+    let newRestaurants = restaurantsArray.filter(restaurant => new Date(restaurant.dateOpened) > newDateParamater);
 
     let date = new Date();
     let hour = date.getHours();
@@ -46,8 +52,10 @@ export default function Restaurants() {
     const [isNewClicked, setIsNewClicked] = useState(false);
     const [isMostPopularClicked, setIsMostPopularClicked] = useState(false);
     const [isNowOpenClicked, setIsNowOpenClicked] = useState(false);
+
     
     const onAllClicked = () => {
+        setArrayToMap(restaurantsArray)
         setIsMainContainerShown(true);
         setIsNewClicked(false);
         setIsNowOpenClicked(false);
@@ -59,9 +67,11 @@ export default function Restaurants() {
         setIsMainContainerShown(false);
         setIsNowOpenClicked(false);
         setIsMostPopularClicked(false);
+        setArrayToMap(newRestaurants);
     }
     
     const onOpenNowClicked = () => {
+        setArrayToMap(openRestaurants)
         setIsNowOpenClicked(true);
         setIsMainContainerShown(false);
         setIsNewClicked(false);
@@ -69,6 +79,7 @@ export default function Restaurants() {
     }
 
     const onMostPopularClicked = () => {
+        setArrayToMap([])
         setIsMostPopularClicked(true);
         setIsMainContainerShown(false);
         setIsNewClicked(false);
@@ -92,8 +103,7 @@ export default function Restaurants() {
                 <NavbarButton style={{textDecoration: openNowLink}} onClick={onOpenNowClicked}>Open Now</NavbarButton>
             </RestaurantsNavbar>
             <RestaurantsContainer id="restaurantsContainer">
-                {isMainContainerShown &&
-                    restaurantsArray.map((restaurant:any, key:number) => (
+                    {arrayToMap.map((restaurant:any, key:number) => (
                         <Container  key={key} onClick={() => onRestaurantClicked(restaurant)}>
                                 <RestaurantDiv >
                                     <RestaurantImg src={restaurant.url}/>
@@ -101,9 +111,8 @@ export default function Restaurants() {
                                     <RestaurantChef>{restaurant.chef}</RestaurantChef>
                                 </RestaurantDiv>
                         </Container>
-                    ))
-                }
-                {isNewClicked &&
+                    ))}
+                {/* {isNewClicked &&
                     newRestaurants.map((restaurant:any, key:number) => (
                         <Container  key={key} onClick={() => onRestaurantClicked(restaurant)}>
                                 <RestaurantDiv >
@@ -124,7 +133,7 @@ export default function Restaurants() {
                                 </RestaurantDiv>
                         </Container>
                     ))
-                }
+                } */}
             </RestaurantsContainer>
         </ComponentMainDiv>
     )

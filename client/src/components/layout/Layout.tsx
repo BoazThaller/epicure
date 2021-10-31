@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import AboutUs from "../aboutUs/AboutUs";
+import Bag from "../bag/Bag";
 import Chefs from "../chefs/Chefs";
 import Contact from "../contact/Contact";
 import Footer from "../footer/Footer";
@@ -12,7 +13,6 @@ import Restaurant from "../restaurant/Restaurant";
 import Restaurants from "../restaurants/Restaurants";
 import TermsOfUse from "../termsOfUse/TermsOfUse";
 import WindowSize from "../windowSize";
-
 export default function Layout() {
   const size = WindowSize();
 
@@ -90,6 +90,16 @@ export default function Layout() {
                   <NavbarDesktop/>
                 }
                 <PrivacyPolicy/>
+                <Footer/>
+              </Route>
+
+              <Route path="/bag">
+              {size < 600 ? 
+                  <Navbar/>
+                  :
+                  <NavbarDesktop/>
+                }
+                <Bag/>
                 <Footer/>
               </Route>
 

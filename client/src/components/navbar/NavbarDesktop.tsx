@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import FadeIn from 'react-fade-in';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../redux/AppState';
 import { ActionType } from '../../redux/ActionType';
-import restaurants from '../../services/restaurants';
 
 export default function NavbarDesktop() {
 
@@ -38,6 +37,10 @@ export default function NavbarDesktop() {
 
     }
 
+    const onBagClicked = () => {
+        history.push("/bag")
+    }
+
     let restaurantLink = isRestaurantsClicked ? "underline" : "none"
     let chefsLink = isChefsClicked ? "underline" : "none"
 
@@ -65,7 +68,7 @@ export default function NavbarDesktop() {
                 <Profile></Profile>
             </FadeIn>
             <FadeIn delay={700} transitionDuration={700} >
-                <Bag></Bag>
+                <Bag onClick={() => onBagClicked()}></Bag>
                 <Item>{amountOfItems > 0 && amountOfItems}</Item>
             </FadeIn>
             </RightSide>

@@ -67,11 +67,16 @@ export default function Restaurant() {
                     <RestaurantData>
                         <RestaurantName>{restaurant.name}</RestaurantName>
                         <RestaurantChef>{restaurant.chef}</RestaurantChef>
-                        {time > restaurant.opens && time < restaurant.closes ? 
-                            <RestaurantHours>Open Now</RestaurantHours>
-                        :
-                            <RestaurantHours>Closed</RestaurantHours>
-                        }
+                        <HoursDiv>
+                            <ClockContainer>
+                                <Clock src="Assets/icons/clock.svg"/>
+                            </ClockContainer>
+                            {time > restaurant.opens && time < restaurant.closes ? 
+                                <RestaurantHours>Open Now</RestaurantHours>
+                            :
+                                <RestaurantHours>Closed</RestaurantHours>
+                            }
+                        </HoursDiv>
                     </RestaurantData>
                     <RestaurantOptions>
                         <RestaurantOption href="#breakfast">Breakfast</RestaurantOption>
@@ -150,6 +155,22 @@ export default function Restaurant() {
         </RestaurantContainer>
     )
 }
+
+const HoursDiv = styled.div`
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+`
+
+const ClockContainer = styled.div`
+
+`
+
+const Clock = styled.img`
+
+`
+
 const TextContainer = styled.div`
     text-align: center;
     width: 80%;
@@ -315,9 +336,6 @@ const RestaurantChef = styled.div`
 `
     
 const RestaurantHours = styled.div`
-    font-size: 16px;
-    margin-bottom: 30px;
-    margin-top: 20px;
 
 `
 

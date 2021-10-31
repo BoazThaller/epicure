@@ -25,10 +25,10 @@ export function Reduce(oldAppState: AppState = new AppState(), action: Action): 
         newAppState.restaurantArray.pop()
         newAppState.restaurantArray.push(restaurant);
       break;
-    case ActionType.GetChefsRestaurants:
-        let chefsRestaurants = action.payload;
-        newAppState.chefsRestaurants = chefsRestaurants;
-      break;
+    // case ActionType.GetChefsRestaurants:
+    //     let chefsRestaurants = action.payload;
+    //     newAppState.chefsRestaurants = chefsRestaurants;
+    //   break;
     case ActionType.GetDish:
         let dish = action.payload;
         newAppState.dishObj.pop()
@@ -38,10 +38,10 @@ export function Reduce(oldAppState: AppState = new AppState(), action: Action): 
         let results = action.payload;
         newAppState.searchResults = results;
       break;
-    case ActionType.GetDishesNames:
-        let names = action.payload;
-        newAppState.dishesNames = names.data;
-      break;
+    // case ActionType.GetDishesNames:
+    //     let names = action.payload;
+    //     newAppState.dishesNames = names.data;
+    //   break;
     case ActionType.SetRestaurantsLink:
         let restaurantsLinkState = action.payload;
         newAppState.restaurantsLink = restaurantsLinkState;
@@ -53,6 +53,10 @@ export function Reduce(oldAppState: AppState = new AppState(), action: Action): 
     case ActionType.AddToBag:
         let item = action.payload;
         newAppState.amountOfItems = newAppState.amountOfItems + item;
+      break;
+    case ActionType.AddToOrders:
+        let orders = action.payload;
+        newAppState.orders = orders;
       break;
 
   }

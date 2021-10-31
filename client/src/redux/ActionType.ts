@@ -10,4 +10,5 @@ export enum ActionType {
     SetRestaurantsLink,
     SetChefsLink,
     AddToBag,
+    AddToOrders
 }

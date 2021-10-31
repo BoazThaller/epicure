@@ -42,13 +42,13 @@ export default function fetchRestaurants() {
             
     //     },
     //     {
-            // name: "Ya Pan",
-            // chef: "Yuval Ben Neriah",
-            // opens: "16:00",
-            // closes: "22:00",
-            // dateOpened: "April 4, 2021, 23:10:20",
-            // url: "Assets/restaurants/ya-pan.png",
-            // urlBig: "Assets/restaurants/claroBig.png"
+    //         name: "Ya Pan",
+    //         chef: "Yuval Ben Neriah",
+    //         opens: "16:00",
+    //         closes: "22:00",
+    //         dateOpened: "April 4, 2021, 23:10:20",
+    //         url: "Assets/restaurants/ya-pan.png",
+    //         urlBig: "Assets/restaurants/claroBig.png"
             
     //     },
     //     {

@@ -4,11 +4,10 @@ export default function WindowSize() {
 
     const [windowSize, setWindowSize] = useState(window.innerWidth)
 
-
     useEffect(() => {
         function handleResize() {
             setWindowSize(window.innerWidth)
-        }
+    }
 
     window.addEventListener("resize", handleResize);
     handleResize();

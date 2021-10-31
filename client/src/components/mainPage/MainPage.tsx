@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+// import React, { useEffect, useState } from 'react'
 import ChefOfTheWeek from '../chefOfTheWeek/ChefOfTheWeek'
 import Dishes from '../dishes/Dishes'
 import MainSearch from '../mainSearch/MainSearch'
@@ -7,6 +7,7 @@ import RestaurantsSlider from '../restaurants/RestaurantsSliderMainPage'
 import RestaurantsDesktop from '../restaurants/RestaurantsDesktopMainPage'
 import DishesDesktop from '../dishes/DishesDesktop'
 import WindowSize from '../windowSize'
+
 
 export default function Main() {
     const size = WindowSize();
@@ -29,3 +30,4 @@ export default function Main() {
         </div>
     )
 }
+

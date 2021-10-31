@@ -64,7 +64,6 @@ class dishesController {
 
     public async getNames(req: Request, res: Response, next: NextFunction) {
       try {
-        console.log("names")
         const response = await this.service.getNames();
         res.json(response);
       } catch (error) {

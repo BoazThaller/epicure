@@ -15,7 +15,6 @@ const chefSchema = new Schema<Chef>({
 
 const Chef = model<Chef>("Chef", chefSchema);
 
-// {"name":"Pad Ki Mao" , "restaurant":"Kab Kem", "content":"Delicious", "icon": "something.png" , "price":"96", "type":"breakfast"}
 
 export default Chef;
 

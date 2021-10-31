@@ -35,7 +35,6 @@ class DishService {
   }
 
   public getLimit(limit:number) {
-    console.log("here")
     return this.model.find().limit(+limit);
   }
 
