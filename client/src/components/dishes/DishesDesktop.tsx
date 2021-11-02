@@ -99,6 +99,9 @@ const ContentDiv = styled.div`
 
 const SignatureDishOf = styled.div`
     text-align: center;
+    font-weight: 200;
+    font-size: 25px;
+    word-spacing: 5px;
 `
 
 const DishRestaurant = styled.div`

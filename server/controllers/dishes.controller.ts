@@ -2,6 +2,8 @@ import DishService from "../services/dishes.service";
 import { Request, Response, Router, NextFunction } from "express";
 import { nextTick } from "process";
 import { IBaseService } from "../services/BaseService";
+const express = require("express");
+const router = express.Router();
 
 class dishesController {
     public router: Router;

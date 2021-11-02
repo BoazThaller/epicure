@@ -152,7 +152,8 @@ const Profile = styled.button`
 
 const SearchBar = styled.input`
     background: url(Assets/icons/search.png);
-    padding-left: 20px;
+    padding: 10px;
+    padding-left: 30px;
     background-size: 22px;
     background-repeat: no-repeat;
     height: 20px;

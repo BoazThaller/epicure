@@ -281,7 +281,7 @@ const ModalBackground = styled.div`
     flex-direction: column;
     overflow-y: overlay;
     @media (min-width:600px) {
-        width: 370px;
+        width: 360px;
         height: 85%;
         padding-bottom: 10px;
         z-index: 1;
@@ -306,6 +306,10 @@ const CloseModal = styled.button`
     font-size: 30px;
     @media(min-width: 600px) {
         font-size: 20px;
+    }
+    transition: all 0.4s ease-in-out;
+    :hover {
+        transform: rotate(360deg);
     }
 `
 

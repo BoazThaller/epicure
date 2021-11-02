@@ -114,21 +114,32 @@ export default function MainSearch() {
 
 const SearchAndClear = styled.div`
     position: relative;
-    width: 320px;
     margin: auto;
+    @media(min-width: 600px) {
+        width: 320px;
+
+    }
 `
 const ClearSearch = styled.button`
     background: transparent;
     cursor: pointer;
     position: absolute;
-    top: 0;
     border-radius: 5px;
-    right: 0px;
     z-index: 2;
     border: none;
-    top: 2px;
-    height: 30px;
     cursor: pointer;
+    margin-left: -20px;
+    margin-top: 7px;
+    font-size: 15px;
+    transition: all 0.4s ease-in-out;
+    :hover {
+        transform: rotate(360deg);
+    }
+    @media(min-width: 600px) {
+        margin-top: 28px;
+    }
+
+
 `
 
 const Result = styled.div`
@@ -172,8 +183,9 @@ const SearchResults = styled.div`
     margin: auto;
     height: 65px;
     overflow-y: overlay;
+    margin-top: -20px;
     @media(min-width: 600px) {
-        width: 71%;
+        width: 67%;
         text-align: left;
         // margin: auto;
         background: white;
@@ -234,8 +246,10 @@ const SearchBar = styled.input`
     opacity: 0.8;
     width: 270px;
     border: 1px solid #0000002e;
+    margin-top: 20px;   
     @media(min-width: 600px) {
         width: 85%;
+
     }
 `
 
@@ -249,6 +263,7 @@ const SearchDiv = styled.div`
         padding-top: 10px;
         text-align: center;
     }
+
 `
 
 const SearchOptions = styled.div`

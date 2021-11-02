@@ -1,13 +1,13 @@
 import Dish from "../schemes/dish";
 import { Model, Query } from "mongoose";
 
-export interface IBaseService {
-  model: Model<any, {}, {}, {}>;
-  add(body: any): Promise<any>;
-  get(id: string): Query<any, any, {}, any>;
-  update(body: any, id: string): Query<any, any, {}, any>;
-  delete(body: string): Query<any, any, {}, any>;
-}
+// export interface IBaseService {
+//   model: Model<any, {}, {}, {}>;
+//   add(body: any): Promise<any>;
+//   get(id: string): Query<any, any, {}, any>;
+//   update(body: any, id: string): Query<any, any, {}, any>;
+//   delete(body: string): Query<any, any, {}, any>;
+// }
 
 class DishService {
   model: Model<any, {}, {}, {}>;

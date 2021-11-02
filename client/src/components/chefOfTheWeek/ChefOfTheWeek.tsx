@@ -160,7 +160,7 @@ const ChefRestaurants = styled.div`
     width: -webkit-fill-available;
     @media(min-width: 600px) {
         margin-left: 0px;
-        width: 80%;
+        width: 75%;
     }
 
 `
@@ -176,15 +176,22 @@ const Restaurant = styled.div`
     width: auto !important;  
     text-align: center;
     cursor: pointer;
+    margin-left: 10px;
+    @media(min-width: 600px) {
+        margin-left: 0px;
+    }
+
 `
 const RestaurantImg = styled.img`
-    width: 150px;
+    width: 160px;
     height: 150px
 `
 
 const ChefRestaurantsHeadline = styled.div`
+    margin-left: 10px;
     @media(min-width: 600px) {
-
+        margin-left: 0px;
+        
     }
 `
 

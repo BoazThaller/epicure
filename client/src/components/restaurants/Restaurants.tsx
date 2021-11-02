@@ -2,51 +2,49 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { on } from 'stream';
 import styled from 'styled-components';
-import { IRestaurant } from '../../interfaces/IRestaurant';
 import { ActionType } from '../../redux/ActionType';
 import { AppState } from '../../redux/AppState';
 import WindowSize from '../windowSize';
+import FadeIn from 'react-fade-in';
 
 export default function Restaurants() {
 
     const size = WindowSize();
-
+    
     const dispatch = useDispatch();
     const history = useHistory();
     const restaurantsArray = useSelector((state: AppState) => state.restaurantsArray);
     const [arrayToMap, setArrayToMap] = useState(restaurantsArray);
     
+
     useEffect(() => {
         localStorage.removeItem("restaurantData");
         localStorage.removeItem("dishesData");
         async function fetchRestaurants() {
             let restaurants = await axios.get("http://localhost:3001/api/v1/restaurants");     
             dispatch({type: ActionType.GetRestaurants, payload: restaurants});
+            setArrayToMap(restaurants.data);
         };
-        fetchRestaurants().then(
-            () => {
-                setArrayToMap(restaurantsArray)    
-            }
-        )
-    
-    }, [])
-    
+        fetchRestaurants()
+        }, [dispatch])
+        
+        
     const onRestaurantClicked = (restaurant:any) => {
         dispatch({type: ActionType.GetRestaurant, payload: restaurant});
         history.push("/restaurant");
     }
     
-    let newDateParamater = new Date("2020-01-01T21:59:59.000Z")
-    let newRestaurants = restaurantsArray.filter(restaurant => new Date(restaurant.dateOpened) > newDateParamater);
-
+    
     let date = new Date();
     let hour = date.getHours();
     let minutes = date.getMinutes();
-    let time = (hour + ":" + minutes);
+    let currentTime = ((hour < 10 ? "0" : "") + hour + ":" + minutes);
+    let newDateParamater = new Date("2020-01-01T21:59:59.000Z")
+    
+    let newRestaurants = restaurantsArray.filter(restaurant => new Date(restaurant.dateOpened) > newDateParamater);
+    let openRestaurants = restaurantsArray.filter(restaurant => restaurant.opens < currentTime && restaurant.closes > currentTime);
 
-    let openRestaurants = restaurantsArray.filter(restaurant => restaurant.opens < time && restaurant.closes > time);
 
     const [isMainContainerShown, setIsMainContainerShown] = useState(true);
     const [isNewClicked, setIsNewClicked] = useState(false);
@@ -63,11 +61,11 @@ export default function Restaurants() {
     }
 
     const onNewClicked = () => {
+        setArrayToMap(newRestaurants);
         setIsNewClicked(true);
         setIsMainContainerShown(false);
         setIsNowOpenClicked(false);
         setIsMostPopularClicked(false);
-        setArrayToMap(newRestaurants);
     }
     
     const onOpenNowClicked = () => {
@@ -91,49 +89,38 @@ export default function Restaurants() {
     let mostPopularClicked = isMostPopularClicked ? "underline" : "none";
     let openNowLink = isNowOpenClicked ? "underline" : "none";
 
+    let delay = 200
     return (
         <ComponentMainDiv id="container">
             {size < 600 &&
                 <RestaurantsHeadline>RESTAURANTS</RestaurantsHeadline>
             }
             <RestaurantsNavbar>
-                <NavbarButton style={{textDecoration: allLink}} onClick={onAllClicked}>All</NavbarButton>
-                <NavbarButton style={{textDecoration: newLink}} onClick={onNewClicked}>New</NavbarButton>
-                <NavbarButton style={{textDecoration: mostPopularClicked}} onClick={onMostPopularClicked}>Most Popular</NavbarButton>
-                <NavbarButton style={{textDecoration: openNowLink}} onClick={onOpenNowClicked}>Open Now</NavbarButton>
+                <FadeIn delay={200}>
+                    <NavbarLink style={{textDecoration: allLink}} onClick={onAllClicked}>All</NavbarLink>
+                </FadeIn>
+                <FadeIn delay={300}>
+                    <NavbarLink style={{textDecoration: newLink}} onClick={onNewClicked}>New</NavbarLink>
+                </FadeIn>
+                <FadeIn delay={400}>
+                    <NavbarLink style={{textDecoration: mostPopularClicked}} onClick={onMostPopularClicked}>Most Popular</NavbarLink>
+                </FadeIn>
+                <FadeIn delay={500}>
+                    <NavbarLink style={{textDecoration: openNowLink}} onClick={onOpenNowClicked}>Open Now</NavbarLink>
+                </FadeIn>
             </RestaurantsNavbar>
             <RestaurantsContainer id="restaurantsContainer">
                     {arrayToMap.map((restaurant:any, key:number) => (
-                        <Container  key={key} onClick={() => onRestaurantClicked(restaurant)}>
-                                <RestaurantDiv >
-                                    <RestaurantImg src={restaurant.url}/>
-                                    <RestaurantName>{restaurant.name}</RestaurantName>
-                                    <RestaurantChef>{restaurant.chef}</RestaurantChef>
-                                </RestaurantDiv>
-                        </Container>
+                            <Container  key={key} onClick={() => onRestaurantClicked(restaurant)}>
+                                <FadeIn delay={delay = delay + 100} transitionDuration={300}>
+                                    <RestaurantDiv >
+                                        <RestaurantImg src={restaurant.url}/>
+                                        <RestaurantName>{restaurant.name}</RestaurantName>
+                                        <RestaurantChef>{restaurant.chef}</RestaurantChef>
+                                    </RestaurantDiv>
+                                </FadeIn>
+                            </Container>
                     ))}
-                {/* {isNewClicked &&
-                    newRestaurants.map((restaurant:any, key:number) => (
-                        <Container  key={key} onClick={() => onRestaurantClicked(restaurant)}>
-                                <RestaurantDiv >
-                                    <RestaurantImg src={restaurant.url}/>
-                                    <RestaurantName>{restaurant.name}</RestaurantName>
-                                    <RestaurantChef>{restaurant.chef}</RestaurantChef>
-                                </RestaurantDiv>
-                        </Container>
-                    ))
-                }
-                {isNowOpenClicked &&
-                    openRestaurants.map((restaurant:any, key:number) => (
-                        <Container  key={key} onClick={() => onRestaurantClicked(restaurant)}>
-                                <RestaurantDiv >
-                                    <RestaurantImg src={restaurant.url}/>
-                                    <RestaurantName>{restaurant.name}</RestaurantName>
-                                    <RestaurantChef>{restaurant.chef}</RestaurantChef>
-                                </RestaurantDiv>
-                        </Container>
-                    ))
-                } */}
             </RestaurantsContainer>
         </ComponentMainDiv>
     )
@@ -152,7 +139,7 @@ padding: 0 20px 0 20px;
     gap: 50px;
 }
 `
-const NavbarButton = styled.a`
+const NavbarLink = styled.a`
     font-weight: 200;
     cursor: pointer;
 

@@ -23,6 +23,7 @@ export default function Bag() {
                         </OrderChanges>
                     </OrderContainer>
                     ))
+
                     :    
                 <NoOrders>No orders yet.. go shop!</NoOrders>
                 }

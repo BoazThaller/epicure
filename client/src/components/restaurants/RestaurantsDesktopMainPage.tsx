@@ -56,6 +56,7 @@ export default function RestaurantsDesktop() {
     )
 }
 
+
 const RestaurantImg = styled.img`
     width: inherit;
     height: 160px;
@@ -105,8 +106,9 @@ const HeadlineDiv = styled.div`
 `
 
 const Headline = styled.div`
-    font-size: 30px;
+    font-size: 25px;
     word-spacing: 6px;
+    font-weight: 200
 `
 
 const AllRestaurants = styled.button`
@@ -114,6 +116,10 @@ const AllRestaurants = styled.button`
     background: transparent;
     font-size: 23px;
     float: right;
+    transition: 1s ease;
+    :hover {
+        margin-right: -20px;
+    }
 
 `
 

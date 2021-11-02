@@ -17,90 +17,42 @@ export default function Layout() {
   const size = WindowSize();
 
     return (
-        <BrowserRouter>
+      <BrowserRouter>
+        {size < 600 ? <Navbar/> : <NavbarDesktop/> }
         <section className="layout">
-  
           <main>
             <Switch>
               <Route path="/home">
-                {size < 600 ? 
-                  <Navbar/>
-                  :
-                  <NavbarDesktop/>
-                }
                 <MainPage/>
                 <AboutUs/>
-                <Footer/>
               </Route>
 
               <Route path="/restaurants">
-              {size < 600 ? 
-                  <Navbar/>
-                  :
-                  <NavbarDesktop/>
-                }
                 <Restaurants/>
-                <Footer/>
               </Route>
 
               <Route path="/chefs">
-              {size < 600 ? 
-                  <Navbar/>
-                  :
-                  <NavbarDesktop/>
-                }
                 <Chefs/>
-                <Footer/>
               </Route>
 
               <Route path="/restaurant">
-              {size < 600 ? 
-                  <Navbar/>
-                  :
-                  <NavbarDesktop/>
-                }
                 <Restaurant/>
-                <Footer/>
               </Route>
 
               <Route path="/contact">
-              {size < 600 ? 
-                  <Navbar/>
-                  :
-                  <NavbarDesktop/>
-                }
                 <Contact/>
-                <Footer/>
               </Route>
 
               <Route path="/terms">
-              {size < 600 ? 
-                  <Navbar/>
-                  :
-                  <NavbarDesktop/>
-                }
                 <TermsOfUse/>
-                <Footer/>
               </Route>
 
               <Route path="/privacy">
-              {size < 600 ? 
-                  <Navbar/>
-                  :
-                  <NavbarDesktop/>
-                }
                 <PrivacyPolicy/>
-                <Footer/>
               </Route>
 
               <Route path="/bag">
-              {size < 600 ? 
-                  <Navbar/>
-                  :
-                  <NavbarDesktop/>
-                }
                 <Bag/>
-                <Footer/>
               </Route>
 
 
@@ -109,6 +61,7 @@ export default function Layout() {
           </main>
   
         </section>
+        <Footer/>
       </BrowserRouter>
     )
 }

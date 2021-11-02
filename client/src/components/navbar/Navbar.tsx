@@ -4,11 +4,15 @@ import styled from 'styled-components';
 import MenuDropdown from '../menuDropdown/MenuDropdown';
 // import ReactDOM from 'react-dom'
 import FadeIn from 'react-fade-in';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../redux/AppState';
 
 export default function Navbar() {
 
     const history = useHistory();
     const [isDropDownShown, setIsDropDownShown] = useState(false);
+    const amountOfItems = useSelector((state: AppState) => state.amountOfItems);
+
 
     const dropDownHandler = () => {
         setIsDropDownShown(true);
@@ -17,6 +21,10 @@ export default function Navbar() {
     const onLogoClicked = () => {
         history.push("/home");
         setIsDropDownShown(false);
+    }
+
+    const onBagClicked = () => {
+        history.push("/bag")
     }
 
     return (
@@ -37,13 +45,25 @@ export default function Navbar() {
                 <Profile></Profile>
             </FadeIn>
             <FadeIn delay={500} transitionDuration={700} >
-                <Cart></Cart>
+                <Bag onClick={onBagClicked}></Bag>
+                <Item>{amountOfItems > 0 && amountOfItems}</Item>
             </FadeIn>
             </RightMenu>
-            {(isDropDownShown && <MenuDropdown setIsDropDownClicked={setIsDropDownShown}/>)}
+             <MenuDropdown isDropDownShown={isDropDownShown} setIsDropDownShown={setIsDropDownShown}/>
         </NavbarDiv>
     )
 }
+
+const Item = styled.h6`
+    border-radius: 50%;
+    width: 10px;
+    text-align: center;
+    background: black;
+    color: white;
+    position: absolute;
+    top: 0;
+    margin-top: 4px;
+`
 
 const NavbarDiv = styled.div `
     height: 45px;
@@ -84,7 +104,7 @@ const RightMenu = styled.div`
     justify-content: space-between;
     gap: 12px;
     margin-right: 5px;
-    align-items: flex-start;
+    align-items: center;
 `
     
 const Profile = styled.button`
@@ -101,23 +121,26 @@ const Search = styled.input`
     width: 5px;
     background: url(Assets/icons/search.png);
     padding-left: 20px;
-    background-size: 22px;
+    background-size: 25px;
     background-repeat: no-repeat;
     -webkit-transition: 1s ease;
     transition: 1s ease;
     border: none;
-    margin-right: -10px;
+    padding-bottom: 12px;
     opacity: 0.7;
     :focus{
         transition: 1s ease;
-        width: 100px;
+        width: 90px;
         border: 1px solid black;
+        border-radius: 5px;
+        background-size: 18px;
+        padding-bottom: 5px;
 
     }
 
 `
     
-    const Cart = styled.button`
+    const Bag = styled.button`
     width: 20px;
     height: 20px;
     background: url("Assets/icons/cart.svg");

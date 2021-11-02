@@ -9,16 +9,17 @@ export default function MenuDropdown(props:any) {
 
 
     const onXClicked = () => {
-        props.setIsDropDownClicked(false);
+        props.setIsDropDownShown(false);
     }
     
     const onRestaurantsClicked = () => {
         history.push("/restaurants");
-        props.setIsDropDownClicked(false);
+        props.setIsDropDownShown(false);
     }
 
+
     return (
-        <ModalBackground>
+        <ModalBackground isDropDownShown={props.isDropDownShown}>
             <Div>
                 <CloseModal onClick={() => onXClicked()}>X</CloseModal>
             </Div>
@@ -40,8 +41,9 @@ export default function MenuDropdown(props:any) {
 const Div = styled.div`
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     padding: 20px;
+
 `
 
 const ModalBackground = styled.div`
@@ -51,11 +53,13 @@ const ModalBackground = styled.div`
     position: fixed;
     display: flex;
     top: 50%;
-    left: 50%;
+    left: ${(props: {isDropDownShown : boolean}) => (props.isDropDownShown ? "50%" : "-100%")};
+    transition: left 1.3s;
     transform: translate(-50%, -50%);
     justify-content: center;
     align-items: center;
     z-index: 9000;
+
 
 `
 
@@ -95,12 +99,19 @@ const CloseModal = styled.button`
     background: none;
     border: none;
     font-size: 30px;
+    transition: all 1.5s ease-in-out;
+    :focus {
+        transform: rotate(-500deg)
+    }
+
+
 `
 
 const Restaurants = styled.button`
     border: none;
     background: none;
     font-size: 30px;
+
 
 `
 

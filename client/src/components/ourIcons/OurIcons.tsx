@@ -26,14 +26,14 @@ export default function OurIcons() {
 }
 
 const OurIconsDiv = styled.div`
-    height: 100px;
+    height: 120px;
     opacity: 0.9;
     padding: 16px 69px 13px;
     background: #f7f3f3;
     margin-bottom: 70px;
     margin-top: 80px;
     @media(min-width: 600px) {
-        margin-top: 20px
+        margin-top: 20px;
     }
 `
 
@@ -63,7 +63,7 @@ const IconName = styled.div`
 const Icons = styled.div`
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 10px;
     @media(min-width: 600px) {
         justify-content: center;
         gap: 50px;
